@@ -1,0 +1,11 @@
+<!--The whole content below can be removed with the new code.-->
+<h1>
+  Musical Box
+</h1>
+<app-authentication></app-authentication>
+
+<app-musical-box-list [musicalBoxList]="$myMusicalBoxList | async" (selectBox)="selectMyBox($event)"></app-musical-box-list>
+<app-musical-box-list [musicalBoxList]="$publicMusicalBoxList | async" (selectBox)="selectPublicBox($event)"></app-musical-box-list>
+<button (click)="addBox()">Add Box</button>
+
+<app-musical-box [box]="box" [disabled]="boxDisabled" (updateBox)="updateBox($event)"></app-musical-box>

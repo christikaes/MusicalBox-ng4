@@ -1,0 +1,11 @@
+md-sidenav {
+  width: 200px;
+  text-align: center;
+  padding: 10px;
+}
+
+.add-button {
+    position: fixed !important;
+    top: 30px;
+    right: 15px;
+}
