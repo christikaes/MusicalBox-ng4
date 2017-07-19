@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+}
+
+.row {
+    display:flex;
+}
+
+.highlight {
+    background-color: greenyellow;
+}
