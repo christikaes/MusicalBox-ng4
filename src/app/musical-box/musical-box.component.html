@@ -1,0 +1,10 @@
+<input type="checkbox" [(ngModel)]="box.public" (change)="onUpdateBox()" [disabled]="disabled">
+<label>Public</label>
+<input type="text" [(ngModel)]="box.name" (change)="onUpdateBox()" [disabled]="disabled">
+<label>Musical Box Name</label>
+
+<div class="row" *ngFor="let row of box.data; let i=index">
+  <div [ngClass]="currentNote == j ? 'highlight' : '' " *ngFor="let col of row; let j=index">
+    <input type="checkbox" [attr.checked]="col ? 'checked' : null" (change)="toggleNote(i, j)" [disabled]="disabled">
+  </div>
+</div>
