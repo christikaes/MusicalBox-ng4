@@ -5,7 +5,6 @@
   },
   "apps": [
     {
-      "serviceWorker": true,
       "root": "src",
       "outDir": "dist",
       "assets": [
