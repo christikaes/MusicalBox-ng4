@@ -9,3 +9,13 @@ md-sidenav {
     top: 30px;
     right: 15px;
 }
+
+.left-nav {
+  width: 20%;
+  float: left;
+}
+
+.content {
+  width: 80%;
+  float: left;
+}

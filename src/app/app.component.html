@@ -1,24 +1,18 @@
 <!--The whole content below can be removed with the new code.-->
 
-<md-sidenav-container fullscreen>
-  <md-sidenav #sidenav>
-    <app-authentication></app-authentication>
-    <h3 md-subheader *ngIf="($myMusicalBoxList | async).length > 0">My Music</h3>
-    <app-musical-box-list [musicalBoxList]="$myMusicalBoxList | async" (selectBox)="selectMyBox($event)"></app-musical-box-list>
-    <h3 md-subheader *ngIf="($publicMusicalBoxList | async).length > 0">Public Music</h3>
-    <app-musical-box-list [musicalBoxList]="$publicMusicalBoxList | async" (selectBox)="selectPublicBox($event)"></app-musical-box-list>
-  </md-sidenav>
+<div class="left-nav">
+  <app-authentication></app-authentication>
+  <h3 *ngIf="($myMusicalBoxList | async).length > 0">My Music</h3>
+  <app-musical-box-list [musicalBoxList]="$myMusicalBoxList | async" (selectBox)="selectMyBox($event)"></app-musical-box-list>
+  <h3 *ngIf="($publicMusicalBoxList | async).length > 0">Public Music</h3>
+  <app-musical-box-list [musicalBoxList]="$publicMusicalBoxList | async" (selectBox)="selectPublicBox($event)"></app-musical-box-list>
+</div>
 
-  <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.toggle()">
-        <md-icon>menu</md-icon>
-    </button>
-    <span>Musical Box</span>
-  </md-toolbar>
-
+<div class="content">
+  <button>menu</button>
+  <h1>Musical Box</h1>
+  
   <app-musical-box [box]="box" [disabled]="boxDisabled" (updateBox)="updateBox($event)"></app-musical-box>
 
-  <button class="add-button" md-fab (click)="addBox()">
-      <md-icon>add</md-icon>
-  </button>
-</md-sidenav-container>
+  <button class="add-button" (click)="addBox()">add</button>
+</div>

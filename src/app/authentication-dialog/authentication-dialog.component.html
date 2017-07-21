@@ -1,33 +1,17 @@
 <div *ngIf="!loading">
-  <md-tab-group>
-    <md-tab label="Login">
-      <form (ngSubmit)="login()" #loginForm="ngForm">
-        <md-input-container>
-          <input mdInput name="email" [(ngModel)]="email" type="email" required placeholder="email">
-        </md-input-container>
-        <md-input-container>
-          <input mdInput name="password" [(ngModel)]="password" type="password" required placeholder="password">
-        </md-input-container>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <input name="email" [(ngModel)]="email" type="email" required placeholder="email">
+      <input name="password" [(ngModel)]="password" type="password" required placeholder="password">
+      <div class="error">{{error}}</div>
+      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    </form>
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+        <input name="email" [(ngModel)]="email" type="email" required placeholder="email">
+        <input name="password" [(ngModel)]="password" type="password" required placeholder="password">
+        <input name="retypePassword" [(ngModel)]="retypePassword" type="password" required placeholder="retype password">
         <div class="error">{{error}}</div>
-        <button md-raised-button color="accent" type="submit" [disabled]="!loginForm.valid">Login</button>
-      </form>
-    </md-tab>
-    <md-tab label="Register">
-      <form (ngSubmit)="register()" #registerForm="ngForm">
-          <md-input-container>
-            <input mdInput name="email" [(ngModel)]="email" type="email" required placeholder="email">
-          </md-input-container>
-          <md-input-container>
-            <input mdInput name="password" [(ngModel)]="password" type="password" required placeholder="password">
-          </md-input-container>
-          <md-input-container>
-            <input mdInput name="retypePassword" [(ngModel)]="retypePassword" type="password" required placeholder="retype password">
-          </md-input-container>
-          <div class="error">{{error}}</div>
-          <button md-raised-button color="accent" type="submit" [disabled]="!registerForm.valid || password !== retypePassword">Register</button>
-      </form>
-    </md-tab>
-  </md-tab-group>
+        <button type="submit" [disabled]="!registerForm.valid || password !== retypePassword">Register</button>
+    </form>
 </div>
 
-<md-progress-spinner *ngIf="loading" mode="indeterminate"></md-progress-spinner> 
+<div *ngIf="loading">Loading...</div> 
