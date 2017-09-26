@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MusicalBox } from '../util';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../app.store'
+import { AppActions } from '../app.actions'
 
 @Component({
   selector: 'app-musical-box-list',
@@ -8,14 +11,16 @@ import { MusicalBox } from '../util';
 })
 export class MusicalBoxListComponent implements OnInit {
   @Input() musicalBoxList: MusicalBox[];
-  @Output() selectBox = new EventEmitter<number>();
-  constructor() { }
+  constructor(
+    private ngRedux: NgRedux<IAppState>,
+    private appActions: AppActions
+  ) { }
 
   ngOnInit() {
   }
 
-  public onSelectBox(index){
-    this.selectBox.emit(index);
+  public onSelectBox(box) {
+    this.ngRedux.dispatch(this.appActions.setBox(box));
   }
 
 }

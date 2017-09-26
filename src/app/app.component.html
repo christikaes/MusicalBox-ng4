@@ -3,22 +3,28 @@
 <md-sidenav-container fullscreen>
   <md-sidenav #sidenav>
     <app-authentication></app-authentication>
-    <h3 md-subheader *ngIf="($myMusicalBoxList | async).length > 0">My Music</h3>
-    <app-musical-box-list [musicalBoxList]="$myMusicalBoxList | async" (selectBox)="selectMyBox($event)"></app-musical-box-list>
-    <h3 md-subheader *ngIf="($publicMusicalBoxList | async).length > 0">Public Music</h3>
-    <app-musical-box-list [musicalBoxList]="$publicMusicalBoxList | async" (selectBox)="selectPublicBox($event)"></app-musical-box-list>
+    <h3 md-subheader
+        *ngIf="($myMusicalBoxList | async).length > 0">My Music</h3>
+    <app-musical-box-list [musicalBoxList]="$myMusicalBoxList | async"></app-musical-box-list>
+    <h3 md-subheader
+        *ngIf="($publicMusicalBoxList | async).length > 0">Public Music</h3>
+    <app-musical-box-list [musicalBoxList]="$publicMusicalBoxList | async"></app-musical-box-list>
   </md-sidenav>
 
   <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.toggle()">
+    <button md-icon-button
+            (click)="sidenav.toggle()">
         <md-icon>menu</md-icon>
     </button>
     <span>Musical Box</span>
   </md-toolbar>
 
-  <app-musical-box [box]="box" [disabled]="boxDisabled" (updateBox)="updateBox($event)"></app-musical-box>
+  <app-musical-box [disabled]="boxDisabled"
+                   (updateBox)="updateBox($event)"></app-musical-box>
 
-  <button class="add-button" md-fab (click)="addBox()">
+  <button class="add-button"
+          md-fab
+          (click)="addBox()">
       <md-icon>add</md-icon>
   </button>
 </md-sidenav-container>

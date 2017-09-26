@@ -6,6 +6,11 @@ import { MaterialModule } from './material.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
+declare var require: any;
+const persistState = require('redux-localstorage');
+import { IAppState, INITITAL_STATE } from './app.store'
+import { rootReducer } from './app.reducer'
 
 import { AppComponent } from './app.component';
 import { MusicalBoxComponent } from './musical-box/musical-box.component';
@@ -15,6 +20,7 @@ import { AuthenticationDialogComponent } from './authentication-dialog/authentic
 
 import { AuthenticationService } from './authentication.service';
 import { DatabaseService } from './database.service';
+import { AppActions } from './app.actions'
 
 import { secrets } from './secrets';
 
@@ -34,15 +40,33 @@ import { secrets } from './secrets';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(secrets.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgReduxModule
   ],
   providers: [
     AuthenticationService,
-    DatabaseService
+    DatabaseService,
+    AppActions
   ],
   entryComponents: [
     AuthenticationDialogComponent
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+  constructor(
+    ngRedux: NgRedux<IAppState>,
+    devToolsExtension: DevToolsExtension
+  ) {
+    ngRedux.configureStore(
+      rootReducer,
+      INITITAL_STATE,
+      [],
+      [
+        devToolsExtension.enhancer(),
+        persistState()
+      ]
+    )
+  }
+}

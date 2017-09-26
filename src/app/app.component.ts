@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MusicalBox } from './util';
 import { Observable } from 'rxjs';
 import { DatabaseService } from './database.service';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from './app.store'
+import { AppActions } from './app.actions'
 
 @Component({
   selector: 'app-root',
@@ -9,15 +12,16 @@ import { DatabaseService } from './database.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public box = this.getNewBox();
   public boxDisabled = false;
 
   public $myMusicalBoxList: Observable<Array<MusicalBox>>;
   public $publicMusicalBoxList: Observable<Array<MusicalBox>>;
 
   constructor(
-    private databaseService: DatabaseService
-  ){}
+    private databaseService: DatabaseService,
+    private ngRedux: NgRedux<IAppState>,
+    private appActions: AppActions
+  ) { }
 
   ngOnInit() {
     this.$myMusicalBoxList = this.databaseService.$myMusicalBoxList();
@@ -28,7 +32,7 @@ export class AppComponent implements OnInit {
   public updateBox(newBox) {
     this.databaseService.$updateBox(newBox).subscribe((response: any) => {
       if (response.box) {
-        this.box = response.box;
+        this.ngRedux.dispatch(this.appActions.setBox(response.box));
       }
       if (response.error) {
         console.log(response.error);
@@ -47,16 +51,6 @@ export class AppComponent implements OnInit {
 
   // Create a new box
   public addBox() {
-    this.box = this.getNewBox();
-  }
-
-  public selectMyBox(box) {
-    this.box = box;
-    this.boxDisabled = false;
-  }
-
-  public selectPublicBox(box) {
-    this.box = box;
-    this.boxDisabled = true;
+    this.ngRedux.dispatch(this.appActions.setBox(this.getNewBox()));
   }
 }
