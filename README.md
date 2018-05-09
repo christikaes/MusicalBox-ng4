@@ -1,3 +1,5 @@
+## THIS REPO IS OUTDATED! Please see MusicalBox for ng6
+
 # MusicalBox
 
 This is a simple Angular Project game called MusicalBox. 
